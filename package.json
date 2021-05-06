@@ -1,0 +1,24 @@
+{
+  "name": "Bella-interpreter-",
+  "version": "1.0.0",
+  "description": "A denotational semantics and interpreter for the language Bella",
+  "main": "bella.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shao-xiong/Bella-interpreter-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shao-xiong/Bella-interpreter-/issues"
+  },
+  "homepage": "https://github.com/shao-xiong/Bella-interpreter-#readme",
+  "dependencies": {
+    "semver": "^7.3.5"
+  }
+}
