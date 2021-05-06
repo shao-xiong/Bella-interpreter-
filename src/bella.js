@@ -11,12 +11,13 @@ const P = program => {
   return w[1];
 };
 
-const S = statement => (memory, output) => {
+const S = statement => ([memory, output]) => {
   if (statement.constructor === VariableDeclaration) {
     let { variable, initializer } = statement;
     return [{ ...memory, [variable]: E(initializer)(memory) }, output];
   } else if (statement.constructor === PrintStatement) {
     let { argument } = statement;
+    return [memory, [...output, E(argument)(memory)]];
   } else if (statement.constructor === Assignment) {
     // ...
   } else if (statement.constructor === whileStatement) {
@@ -146,10 +147,12 @@ const greatereq = (x, y) => new Binary('>=', x, y);
 const and = (x, y) => new Binary('&&', x, y);
 const or = (x, y) => new Binary('||', x, y);
 
+console.log(P(program([print(1), print(2)])));
+
 //console.log(interpret(new Program([new LetStatement('x', 2), new PrintStatement('x')])));
 
-console.log(
-  program([vardec('x', 3), whileLoop(less('x', 10), [print('x'), assign('x', plus('x', 2))])])
-);
+// console.log(
+//   program([vardec('x', 3), whileLoop(less('x', 10), [print('x'), assign('x', plus('x', 2))])])
+// );
 
-console.log(P(program([vardec('x', 3), vardec('y', plus('x', 2)), print('y'), print('x')])));
+// console.log(P(program([vardec('x', 3), vardec('y', plus('x', 2)), print('y'), print('x')])));
