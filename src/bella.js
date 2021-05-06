@@ -2,8 +2,26 @@ function interpret(Program) {
     return P(Program)
 }
 
-function p() {}
-function S() {}
+const P = (Prongram) => {
+    let statements = program.body
+    let w = [{}, []]
+    for (let s of statements) {
+        w = S(s)(w)
+    }
+    return w[1]
+}
+
+const S = (statement) => (memory, output) => {
+    if (statement.constructor === VariableDeclaration){
+        let { varidable. initializer } = statement
+        return [{ ...memory, [varidable]: E(initializer)(memory)}, output]
+    } else if (statement.constructor === PrintStatement) {
+        let {argument} = statement
+    } else if (statement.constructor === Assignment) {
+    } else if (statement.constructor === whileStatement) {
+    } else if (statement.constructor === FunctionDeclaration) {
+    }
+}
 const E = (expression) => (memory) => {
     if (typeof expression === "number") {
         return expression
@@ -17,6 +35,14 @@ const E = (expression) => (memory) => {
         switch (op) {
             case "+":
                 return E(left)(memory) + E(right)(memory)
+            case "-":
+                return E(left)(memory) - E(right)(memory)
+            case "*":
+                return E(left)(memory) * E(right)(memory)
+            case "/":
+                return E(left)(memory) / E(right)(memory)
+            case "**":
+                return E(left)(memory) ** E(right)(memory)
             
         }
     }
@@ -66,7 +92,11 @@ class VariableDeclaration {
         Object.assign(this, {op, left, right})
     }
 }
-
+class FunctionDeclaration{
+    constructor(name, parameters, body) {
+        Object.assign(this, { name, parameters,body })
+    }
+}
 class Binary {
     constructor(argument) {
         this.argument = argument
@@ -119,4 +149,10 @@ console.log(
         whileloop( Less("x", 10), [print("x"), assign("x", Plus("x", 2)),
         ]),
     ])
+)
+
+console.log(
+    P(
+        program([vardec("x", 3), vardec("y", plus("x", 2)), print("y"), print("x")])
+    )
 )
